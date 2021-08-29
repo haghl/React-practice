@@ -1,23 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let Inputdata = "강아지";
+// 리액트는 데이터 바인딩이 쉽다
+// 태그 스타일은 객체형식으로 ex: {{color : 'blue', fontSize : '30px'}}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type="text" id="one" />
+      <input type="button" value="버튼"/>
+      
+      <p>이건친구야 {Inputdata}</p>
     </div>
   );
 }
