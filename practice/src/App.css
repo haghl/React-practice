@@ -1,22 +1,10 @@
-header {
-  width: 100%;
-  height: 100px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  background: #000;
-}
-header h1 {
-  color: #fff;
+.App {
+  text-align: center;
 }
 
-.modal {
-  width: 100%;
-  height: 170px;
-  padding-top: 30px;
-  background: grey;
-  text-align: center;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
