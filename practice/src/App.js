@@ -50,6 +50,19 @@ function App() {
         : null
       }
 
+      {
+        // 반복문 map() 배열 안 데이터 수만큼 리턴해줌 each랑 비슷
+        추천.map((re)=>{
+          return (
+            <div className="list">
+            <h2>오늘은 {re} <span onClick={()=>goodNum_C(goodNum+1)}>good</span> {goodNum}</h2>
+            <p>날짜: 2021.08.30</p>
+            <hr/>
+          </div>
+          );
+        })
+      }
+
     </div>
   );
 }
