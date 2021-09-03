@@ -35,6 +35,7 @@ function App() {
           <p>날짜: 2021.08.30</p>
           <hr/>
         </div>
+        
         <div className="list">
           <h2>
             오늘은 {추천[2]}<button className="modal_Btn" onClick={() => {onoff_C(!onoff)}}></button> 
