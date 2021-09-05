@@ -12,6 +12,7 @@ function App() {
   let [goodNum, goodNum_C] = useState(0);
   let [개별모달, 개별모달_C] = useState(0);
   let [onoff, onoff_C] = useState(false);
+  let [inputvalue, inputvalue_C] = useState('');
 
   function changetit(){
     let newArray = [...추천];
@@ -19,11 +20,18 @@ function App() {
     추천변경(newArray);
   }// state 변경 시에는 보통 deepcopy후에 안에 내용을 변경함
 
+  function pushtit(){
+    let newArray = [...추천];
+    newArray.unshift(inputvalue);
+    추천변경(newArray);
+  }
+
   return (
     <div className="App">
       <header>
           <h1 className="logo">리액트 연습</h1>
       </header>
+      {/* <input type="text" onChange={(e)=>inputvalue_C(e.target.value)} /> */}
       <button onClick={changetit}>BTN</button>
       <main>
         <div className="list">
@@ -46,6 +54,11 @@ function App() {
         </div>
       </main>
 
+      <div className="inputbox">
+        <input type="text" onChange={(e)=>inputvalue_C(e.target.value)} />
+        <button onClick={()=>{pushtit()}}>발행</button>
+      </div>
+
       {
         onoff === true
         ? <Modal 추천 = {추천} 개별모달 = {개별모달} onoff_C = {onoff_C}></Modal>// props: 부모 state를 자식 state에게 보내는 방법 컴포넌트 옆에 이름 = {state명}
@@ -56,7 +69,7 @@ function App() {
         // 반복문 map() 배열 안 데이터 수만큼 리턴해줌 each랑 비슷
         추천.map((re, i)=>{
           return (
-            <div className="list">
+            <div className="list" key={i}>
             <h2>오늘은 {re} <span onClick={() => {
               onoff_C(true);
               개별모달_C(i);
