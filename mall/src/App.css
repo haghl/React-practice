@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.jumbotron {width: 100%; height: 200px; background: #bebebe; text-align: center;}
+.jumbotron .greet {padding-top: 30px;font-size: 24px;font-weight: bold;}
+
+.col-md-4 {text-align: center;}
+.col-md-4 img {width: 100%;}
