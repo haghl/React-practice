@@ -1,7 +1,13 @@
 import "./App.css";
 import { Navbar, Container,NavDropdown,Nav,Button } from "react-bootstrap";
+import React, { useState } from 'react';
 
 function App() {
+
+  let [shoes, shoes_c] = useState([]);
+  // export default 함수명 = 내보내기 받을 때는 import 임의명 from './경로'
+  // export 보통 페이지 마지막에 옴, 페이지당 한번 밖에 쓸 수 없음
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
