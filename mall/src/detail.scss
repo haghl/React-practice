@@ -8,4 +8,20 @@
     }
 }
 
+.alert {
+    width: 90%;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: orange;
+
+    p {
+        font-size: 18px;
+        color: #fff;
+    }
+}
+
 //extend @extend 복사하고 싶은거 를 넣으면 복사됨

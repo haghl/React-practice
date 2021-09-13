@@ -74,7 +74,7 @@ function App() {
 function Contents(props){
   return(
     <div className="col-md-4">
-      <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id + 1) + '.jpg'} alt="" />
+      <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id) + '.jpg'} alt="" />
       <h4>{props.shoes.title}</h4>
       <p>가격 : {props.shoes.price}원</p>
     </div>
