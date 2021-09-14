@@ -67,7 +67,7 @@ function App() {
 
       <Button className="moreBtn" onClick={()=>{
 
-        axios.post
+        //axios.post() 는 서버로 보내기
 
         axios.get('https://codingapple1.github.io/shop/data2.json')
         .then((result)=>{
