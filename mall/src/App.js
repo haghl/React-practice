@@ -2,13 +2,13 @@ import "./App.css";
 import "./default.css";
 import { Navbar, Container,NavDropdown,Nav,Button } from "react-bootstrap";
 import React, { useState } from 'react';
+import axios from 'axios';
 import data from './data.js';
 import Detail from './Detail.js';
 
 import {Link, Route, Switch} from 'react-router-dom';
 
 function App() {
-
   let [shoes, shoes_c] = useState(data);
   // export default 함수명 = 내보내기 받을 때는 import 임의명 from './경로'
   // export 보통 페이지 마지막에 옴, 페이지당 한번 밖에 쓸 수 없음
@@ -22,7 +22,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
-              <Nav.Link as={Link} to="/">Detail</Nav.Link>
+              <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -44,7 +44,7 @@ function App() {
             <Button variant="primary">구매하러가기</Button>
           </div>
           <div className="container">
-          <div className="row">
+            <div className="row">
               {
                 shoes.map((re, i) => {
                   return(
@@ -52,7 +52,6 @@ function App() {
                   );
                 })
               }
-
             </div>
           </div>
         </Route>
@@ -65,8 +64,17 @@ function App() {
         {/* <Route path="/dd" component={Contents}></Route> 이런식으로 컴포넌트를 넣을 수도 있음 */}
 
       </Switch>
-      
-      
+
+      <Button className="moreBtn" onClick={()=>{
+
+        axios.post
+
+        axios.get('https://codingapple1.github.io/shop/data2.json')
+        .then((result)=>{
+          shoes_c([...shoes, ...result.data ])
+        })//ajax 요청 성공시
+        .catch(()=>{})//ajax 요청 실패시
+      }}>더보기</Button>
     </div>
   );
 }

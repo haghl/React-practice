@@ -17,13 +17,14 @@ function Detail(props){
     useEffect(()=>{
       let timer = setTimeout(() => {
         // 페이지 이동 몇초 후 사라지는 함수
-        //let Alert = document.querySelector('.alert');
-        //Alert.style.display = 'none';
+        // let Alert = document.querySelector('.alert');
+        // Alert.style.display = 'none';
+        
         alert_C(false);
       }, 2000);
 
       // 페이지가 사라질 때 실행 되는 함수
-      return () => {clearTimeout(timer)}// setTimeOut 해제하는게 버그가 덜함
+      return () => {clearTimeout(timer)} // setTimeOut 해제하는게 버그가 덜함
     }, [alert]);
 
 
