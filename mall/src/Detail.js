@@ -22,16 +22,19 @@ function Detail(props){
         
         alert_C(false);
       }, 2000);
-
       // 페이지가 사라질 때 실행 되는 함수
       return () => {clearTimeout(timer)} // setTimeOut 해제하는게 버그가 덜함
     }, [alert]);
 
+    function changeStock(){
+      let newArray = [...props.stocknum];
+      newArray[0] = newArray[0] - 1;
+      props.stocknum_c(newArray);
+    }
 
     let history = useHistory();//뒤로가기를 위해
     let {id} = useParams();
     let sameitem = props.shoes.find(idx => idx.id == id);
-    console.log(sameitem);
     return(
         <div className="container">
           
@@ -51,12 +54,19 @@ function Detail(props){
               <h4 className="pt-5">{sameitem.title}</h4>
               <p>{sameitem.content}</p>
               <p>{sameitem.price}</p>
-              <button className="btn btn-danger">주문하기</button>
+              <Stock stocknum={props.stocknum}></Stock>
+              <button className="btn btn-danger" onClick={() => changeStock()}>주문하기</button>
               <button className="btn btn-danger" onClick={() => history.goBack()}>뒤로가기</button>
             </div>
         </div>
       </div> 
     );
+}
+
+function Stock(props){
+  return(
+    <p>재고: {props.stocknum[0]}</p>
+  )
 }
 
 export default Detail;

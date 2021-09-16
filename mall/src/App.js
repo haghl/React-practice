@@ -10,6 +10,7 @@ import {Link, Route, Switch} from 'react-router-dom';
 
 function App() {
   let [shoes, shoes_c] = useState(data);
+  let [stocknum, stocknum_c] = useState([11,12,13]);
   // export default 함수명 = 내보내기 받을 때는 import 임의명 from './경로'
   // export 보통 페이지 마지막에 옴, 페이지당 한번 밖에 쓸 수 없음
 
@@ -58,7 +59,7 @@ function App() {
 
 
         <Route path="/:id">
-              <Detail shoes={shoes} />
+              <Detail shoes={shoes} stocknum={stocknum} stocknum_c={stocknum_c}/>
               {/* 모듈화 */}
         </Route>
         {/* <Route path="/dd" component={Contents}></Route> 이런식으로 컴포넌트를 넣을 수도 있음 */}
@@ -68,10 +69,11 @@ function App() {
       <Button className="moreBtn" onClick={()=>{
 
         //axios.post() 는 서버로 보내기
-
+        // 로딩중 UI
         axios.get('https://codingapple1.github.io/shop/data2.json')
         .then((result)=>{
           shoes_c([...shoes, ...result.data ])
+          // 로딩중 UI 삭제
         })//ajax 요청 성공시
         .catch(()=>{})//ajax 요청 실패시
       }}>더보기</Button>
@@ -85,6 +87,7 @@ function Contents(props){
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id) + '.jpg'} alt="" />
       <h4>{props.shoes.title}</h4>
       <p>가격 : {props.shoes.price}원</p>
+      <Link to={'/' + (props.shoes.id)} className="btn btn-danger">주문하러가기</Link>
     </div>
   );
 }
