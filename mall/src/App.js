@@ -1,12 +1,14 @@
 import "./App.css";
 import "./default.css";
 import { Navbar, Container,NavDropdown,Nav,Button } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import data from './data.js';
 import Detail from './Detail.js';
 
 import {Link, Route, Switch} from 'react-router-dom';
+
+let stockcontext = React.createContext();//범위 설정 props대신 가능
 
 function App() {
   let [shoes, shoes_c] = useState(data);
@@ -45,15 +47,17 @@ function App() {
             <Button variant="primary">구매하러가기</Button>
           </div>
           <div className="container">
-            <div className="row">
-              {
-                shoes.map((re, i) => {
-                  return(
-                    <Contents key={i} shoes={shoes[i]}/>
-                  );
-                })
-              }
-            </div>
+            <stockcontext.Provider value={stocknum}>
+              <div className="row">
+                {
+                  shoes.map((re, i) => {
+                    return(
+                      <Contents key={i} shoes={shoes[i]}/>
+                    );
+                  })
+                }
+              </div>
+            </stockcontext.Provider>
           </div>
         </Route>
 
@@ -82,6 +86,9 @@ function App() {
 }
 
 function Contents(props){
+
+  let stocknum = useContext(stockcontext);//usecontext 컴포넌트 여러 하위에 props쓰기 힘들때
+
   return(
     <div className="col-md-4">
       <img src={'https://codingapple1.github.io/shop/shoes' + (props.shoes.id) + '.jpg'} alt="" />

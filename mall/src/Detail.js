@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {useHistory, useParams} from 'react-router-dom';
-import styled from 'styled-components';
+import { Nav } from "react-bootstrap";
+import {CSSTransition} from "react-transition-group";
+//import styled from 'styled-components';
 import './detail.scss';
 
 // let divbox = styled.div` 
@@ -30,8 +32,14 @@ function Detail(props){
       let newArray = [...props.stocknum];
       newArray[0] = newArray[0] - 1;
       props.stocknum_c(newArray);
+      
+      if(newArray[0] < 0){
+        newArray[0] = 0;
+      }
     }
 
+    let [nowtab,nowtab_c] = useState(0);
+    let [switchtab ,switchtab_c] = useState(false);
     let history = useHistory();//뒤로가기를 위해
     let {id} = useParams();
     let sameitem = props.shoes.find(idx => idx.id == id);
@@ -58,9 +66,37 @@ function Detail(props){
               <button className="btn btn-danger" onClick={() => changeStock()}>주문하기</button>
               <button className="btn btn-danger" onClick={() => history.goBack()}>뒤로가기</button>
             </div>
-        </div>
+          </div>
+            <Nav variant="tabs" defaultActiveKey="link-0">
+              <Nav.Item>
+                <Nav.Link eventKey="link-0" onClick={()=>{switchtab_c(false); nowtab_c(0);}}>Active</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="link-1" onClick={()=>{switchtab_c(false); nowtab_c(1);}}>Option 2</Nav.Link>
+              </Nav.Item>
+            </Nav>
+            <CSSTransition in={switchtab} classNames="wow" timeout={500}>
+              <Tabcont nowtab = {nowtab} switchtab_c = {switchtab_c}/>
+            </CSSTransition>
       </div> 
     );
+}
+
+function Tabcont(props){
+  useEffect(()=>{
+    props.switchtab_c(true);
+  })
+
+  switch(props.nowtab){
+    case 0:
+      return <div>1번 페이지</div>;
+      break;
+    case 1:
+      return <div>2번 페이지</div>;
+      break;
+    default:
+      return <div>잘못 눌렀습니다.</div>;
+  }
 }
 
 function Stock(props){

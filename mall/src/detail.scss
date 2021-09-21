@@ -24,4 +24,12 @@
     }
 }
 
+.wow-enter {
+    opacity: 0;
+}
+.wow-enter-active {
+    opacity: 1;
+    transition: all 500ms;
+}
+
 //extend @extend 복사하고 싶은거 를 넣으면 복사됨
