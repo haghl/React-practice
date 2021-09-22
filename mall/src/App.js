@@ -5,6 +5,7 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import data from './data.js';
 import Detail from './Detail.js';
+import Cart from './Cart.js';
 
 import {Link, Route, Switch} from 'react-router-dom';
 
@@ -25,7 +26,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
-              <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
+              <Nav.Link as={Link} to="/mycart">장바구니</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -59,8 +60,23 @@ function App() {
               </div>
             </stockcontext.Provider>
           </div>
+
+          <Button className="moreBtn" onClick={()=>{
+
+            //axios.post() 는 서버로 보내기
+            // 로딩중 UI
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{
+              shoes_c([...shoes, ...result.data ])
+              // 로딩중 UI 삭제
+            })//ajax 요청 성공시
+            .catch(()=>{})//ajax 요청 실패시
+          }}>더보기</Button>
         </Route>
 
+        <Route path="/mycart">
+            <Cart/>
+        </Route>
 
         <Route path="/:id">
               <Detail shoes={shoes} stocknum={stocknum} stocknum_c={stocknum_c}/>
@@ -69,18 +85,6 @@ function App() {
         {/* <Route path="/dd" component={Contents}></Route> 이런식으로 컴포넌트를 넣을 수도 있음 */}
 
       </Switch>
-
-      <Button className="moreBtn" onClick={()=>{
-
-        //axios.post() 는 서버로 보내기
-        // 로딩중 UI
-        axios.get('https://codingapple1.github.io/shop/data2.json')
-        .then((result)=>{
-          shoes_c([...shoes, ...result.data ])
-          // 로딩중 UI 삭제
-        })//ajax 요청 성공시
-        .catch(()=>{})//ajax 요청 실패시
-      }}>더보기</Button>
     </div>
   );
 }
