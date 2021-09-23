@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import { Nav } from "react-bootstrap";
+import { useSelector, useDispatch } from 'react-redux';
 import {CSSTransition} from "react-transition-group";
 //import styled from 'styled-components';
 import './detail.scss';
@@ -43,6 +44,9 @@ function Detail(props){
     let history = useHistory();//뒤로가기를 위해
     let {id} = useParams();
     let sameitem = props.shoes.find(idx => idx.id == id);
+    
+    let state = useSelector((state)=> state);
+    let dispatch = useDispatch();
     return(
         <div className="container">
           
@@ -63,7 +67,11 @@ function Detail(props){
               <p>{sameitem.content}</p>
               <p>{sameitem.price}</p>
               <Stock stocknum={props.stocknum}></Stock>
-              <button className="btn btn-danger" onClick={() => changeStock()}>주문하기</button>
+              <button className="btn btn-danger" onClick={() => {
+                changeStock();
+                dispatch({type : '항목추가', payload : {id : sameitem.id, name : sameitem.title, quan : 1}});
+                history.push('/mycart');
+                }}>주문하기</button>
               <button className="btn btn-danger" onClick={() => history.goBack()}>뒤로가기</button>
             </div>
           </div>
@@ -75,6 +83,7 @@ function Detail(props){
                 <Nav.Link eventKey="link-1" onClick={()=>{switchtab_c(false); nowtab_c(1);}}>Option 2</Nav.Link>
               </Nav.Item>
             </Nav>
+
             <CSSTransition in={switchtab} classNames="wow" timeout={500}>
               <Tabcont nowtab = {nowtab} switchtab_c = {switchtab_c}/>
             </CSSTransition>

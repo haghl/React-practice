@@ -11,24 +11,38 @@ import {Provider} from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 
 let baseState = [
-  {id : 0, name : '굿슈즈', quan : 2}
+  {id : 0, name : '이름', quan : 1}
 ];
 
 function reducer(state = baseState, action){
-  if(action.type === '증가'){
+  if(action.type === '항목추가'){
 
-    let copystate = [...state];
-    copystate[0].quan++;
-
-    return copystate
-  } else if(action.type === '감소'){
-    let copystate = [...state];
-    if(copystate[0].quan == 0){
-      copystate[0].quan = 0
-    }else {
-      copystate[0].quan--;
+    let found = state.findIndex((a)=>{return a.id === action.payload.id});
+    if(found >= 0){
+      let copystate = [...state];
+      copystate[found].quan++;
+      return copystate
+    } else {
+      let copystate = [...state];
+      copystate.push(action.payload);
+      return copystate
     }
+
+  } else if(action.type === '증가'){
+
+    let copystate = [...state];
+    copystate[action.payload].quan++;
     return copystate
+
+  } else if(action.type === '감소'){
+
+    let copystate = [...state];
+    if(copystate[action.payload].quan = 0){
+      copystate[action.payload].quan = 0
+    }else {
+    }
+    return copystate;
+
   }else {
     return state
   }

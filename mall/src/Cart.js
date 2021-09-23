@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Table } from "react-bootstrap";
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './Cart.css';
 
 function Cart(props){
+
+    let state = useSelector((state)=> state);
+    let dispatch = useDispatch();
 
     let [alertclose, alertclose_C] = useState(true);
     return (
@@ -19,13 +22,13 @@ function Cart(props){
                 </thead>
                 <tbody>
                     {
-                        props.state.map((a, i)=>{
+                        state.reducer.map((a, i)=>{
                             return(
                                 <tr key={i}>
                                     <td>{a.id}</td>
                                     <td>{a.name}</td>
                                     <td>{a.quan}</td>
-                                    <td><button className="plusquan" onClick={()=>{props.dispatch({type : '증가'})}}>+</button><button className="minusquan" onClick={()=>{props.dispatch({type : '감소'})}}>-</button></td>
+                                    <td><button className="plusquan" onClick={()=>{dispatch({type : '증가', payload : a.id})}}>+</button><button className="minusquan" onClick={()=>{dispatch({type : '감소', payload : a.id})}}>-</button></td>
                                 </tr>// 리덕스 데이터 수정법 props.dispatch({type : ???})
                             )
                         })
@@ -44,12 +47,12 @@ function Cart(props){
     )
 }
 
-function state를Props화(state){
-    return{
-        state : state.reducer
-    }
-}
+// function state를Props화(state){ 이건 옛날 문법
+//     return{
+//         state : state.reducer
+//     }
+// }
 
-export default connect(state를Props화)(Cart)
+export default Cart;
 
 //export default Cart;
